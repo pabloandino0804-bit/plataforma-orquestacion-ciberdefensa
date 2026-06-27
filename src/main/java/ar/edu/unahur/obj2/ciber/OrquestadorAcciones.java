@@ -14,17 +14,17 @@ public class OrquestadorAcciones {
     }
 
     public void registrarAccion(IAccionConf accion) {
-        loteAcciones.add(accion);
+        this.loteAcciones.add(accion);
     }
 
     public void ejecutarEnLote() {
-        for (IAccionConf accion : loteAcciones) {
+        for (IAccionConf accion : this.loteAcciones) {
             accion.ejecutar();
         }
         vaciarLoteAcciones();
     }
 
     private void vaciarLoteAcciones() {
-        loteAcciones.clear();
+        this.loteAcciones.clear();
     }
 }

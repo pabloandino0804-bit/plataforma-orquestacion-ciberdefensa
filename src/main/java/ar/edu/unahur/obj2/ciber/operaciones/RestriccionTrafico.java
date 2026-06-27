@@ -12,11 +12,11 @@ public class RestriccionTrafico implements IAccionConf {
     }
 
     public void ejecutar() {
-        nodo.restringirMbps(mbps);
+        this.nodo.restringirCapacidad(mbps);
     }
 
     public void undo() {
-        nodo.ampliarMbps(mbps);
+        this.nodo.ampliarCapacidad(mbps);
     }
 
 }

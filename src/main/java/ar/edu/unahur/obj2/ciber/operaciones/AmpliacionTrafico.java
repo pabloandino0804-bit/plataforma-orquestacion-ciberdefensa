@@ -13,11 +13,11 @@ public class AmpliacionTrafico implements IAccionConf {
 
     @Override
     public void ejecutar() {
-        nodo.ampliarMbps(mbps);
+        this.nodo.ampliarCapacidad(mbps);
     }
 
     @Override
     public void undo() {
-        nodo.restringirMbps(mbps);
+        this.nodo.restringirCapacidad(mbps);
     }
 }
