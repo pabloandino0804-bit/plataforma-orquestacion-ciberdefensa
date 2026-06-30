@@ -3,13 +3,12 @@ package ar.edu.unahur.obj2.ciber;
 import java.util.ArrayList;
 import java.util.List;
 
-import ar.edu.unahur.obj2.ciber.notificacionesAutomaticas.INotificacion;
+import ar.edu.unahur.obj2.ciber.notificacionesAutomaticas.IObservadorNodo;
 
 public class NodoRed {
     private String idNodo;
     private Integer mbps;
-    private Integer limite = -50_000;
-    private List<INotificacion> observadores = new ArrayList<>();
+    private List<IObservadorNodo> observadores = new ArrayList<>();
 
     public NodoRed(String id, Integer mbps) {
         this.idNodo = id;
@@ -24,26 +23,26 @@ public class NodoRed {
         return mbps;
     }
 
-    public void ampliarCapacidad(Integer mbpsDado) {
-
-        this.mbps += mbpsDado;
-        notificarObservadores("Ampliar", mbpsDado);
+    public void ampliarCapacidad(Integer caudal) {
+        this.mbps += caudal;
+        notificarObservadores("Ampliar", caudal);
     }
 
-    public void restringirCapacidad(Integer mbpsDado) {
-        if (mbps - mbpsDado < limite) {
-
+    public void restringirCapacidad(Integer caudal) {
+        if (this.mbps - caudal < -50000) {
+            notificarObservadores("Alerta", caudal);
+            throw new SobrecargaException("El nodo ya supero la capacidad umbral");
         }
-        this.mbps -= mbpsDado;
-        notificarObservadores("Restringir", mbpsDado);
+        this.mbps -= caudal;
+        notificarObservadores("Restringir", caudal);
     }
 
     // Notificaciones/Observadores
-    public void registrarObservador(INotificacion notif) {
+    public void registrarObservador(IObservadorNodo notif) {
         this.observadores.add(notif);
     }
 
-    public void quitarObservador(INotificacion notif) {
+    public void quitarObservador(IObservadorNodo notif) {
         this.observadores.remove(notif);
     }
 

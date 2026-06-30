@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import ar.edu.unahur.obj2.ciber.operaciones.AmpliacionTrafico;
 import ar.edu.unahur.obj2.ciber.operaciones.RestriccionTrafico;
+import ar.edu.unahur.obj2.ciber.operaciones.AccionLote;
 
 public class AccionesTest {
     @Test
@@ -57,6 +58,39 @@ public class AccionesTest {
 
         // When
         restriccion.undo();
+
+        // Then
+        assertEquals(10000, nodo.getCapacidadActual());
+    }
+
+    @Test
+    void dadoUnLote_cuandoSeEjecuta_EjecutaTodasLasAccionesDentroDeElla() {
+        // Given
+        NodoRed nodo = new NodoRed("NODO-1", 10000);
+        AmpliacionTrafico ampliacion = new AmpliacionTrafico(nodo, 3000);
+        RestriccionTrafico restriccion = new RestriccionTrafico(nodo, 5000);
+        AccionLote lote = new AccionLote();
+        lote.registrarAccion(ampliacion);
+        lote.registrarAccion(restriccion);
+        // When
+        lote.ejecutar();
+
+        // Then
+        assertEquals(8000, nodo.getCapacidadActual());
+    }
+
+    @Test
+    void dadoUnLote_cuandoSeDeshace_RevierteTodasLasAccionesDentroDeElla() {
+        // Given
+        NodoRed nodo = new NodoRed("NODO-1", 10000);
+        AmpliacionTrafico ampliacion = new AmpliacionTrafico(nodo, 3000);
+        RestriccionTrafico restriccion = new RestriccionTrafico(nodo, 5000);
+        AccionLote lote = new AccionLote();
+        lote.registrarAccion(ampliacion);
+        lote.registrarAccion(restriccion);
+        lote.ejecutar();
+        // When
+        lote.undo();
 
         // Then
         assertEquals(10000, nodo.getCapacidadActual());

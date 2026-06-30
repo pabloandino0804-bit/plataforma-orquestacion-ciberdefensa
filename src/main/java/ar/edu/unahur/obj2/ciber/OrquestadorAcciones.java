@@ -19,7 +19,11 @@ public class OrquestadorAcciones {
 
     public void ejecutarEnLote() {
         for (IAccionConf accion : this.loteAcciones) {
-            accion.ejecutar();
+            try {
+                accion.ejecutar();
+            } catch (SobrecargaException e) {
+                System.out.print("Operacion en lote fallida" + e.getMessage());
+            }
         }
         vaciarLoteAcciones();
     }
