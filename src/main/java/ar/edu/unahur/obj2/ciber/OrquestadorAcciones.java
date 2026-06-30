@@ -22,7 +22,7 @@ public class OrquestadorAcciones {
             try {
                 accion.ejecutar();
             } catch (SobrecargaException e) {
-                System.out.print("Operacion en lote fallida" + e.getMessage());
+                System.out.print("Operacion en lote fallida: " + e.getMessage());
             }
         }
         vaciarLoteAcciones();

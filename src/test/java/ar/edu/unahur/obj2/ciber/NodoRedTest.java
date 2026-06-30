@@ -71,8 +71,10 @@ public class NodoRedTest {
     void dadoUnNodo_cuandoIntentaRestringirTraficoSuperaAlLimiteDado_LanzaraUnaAlerta() {
         // Given
         NodoRed nodo = new NodoRed("NODO-1", -750);
+        AlertasAdministrador alertasAdministrador = new AlertasAdministrador();
         AlertaSobrecarga alertaSobrecarga = new AlertaSobrecarga();
         nodo.registrarObservador(alertaSobrecarga);
+        nodo.registrarObservador(alertasAdministrador);
 
         assertThrows(SobrecargaException.class, () -> nodo.restringirCapacidad(60000));
     }

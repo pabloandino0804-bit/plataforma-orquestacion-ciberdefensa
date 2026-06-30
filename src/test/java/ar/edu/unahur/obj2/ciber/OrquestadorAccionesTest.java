@@ -9,7 +9,7 @@ import ar.edu.unahur.obj2.ciber.operaciones.RestriccionTrafico;
 
 public class OrquestadorAccionesTest {
     @Test
-    void testEjecutarAccion() {
+    void dadoUnOrquestadorDeAcciones_AlEjecutarUnaAccionIndividualLaMismadDebeTenerlaEnSuLista() {
         NodoRed nodo = new NodoRed("NODO-1", 10000);
         AmpliacionTrafico ampliacion = new AmpliacionTrafico(nodo, 3000);
         RestriccionTrafico restriccion = new RestriccionTrafico(nodo, 5000);
@@ -24,12 +24,11 @@ public class OrquestadorAccionesTest {
     }
 
     @Test
-    void testEjecutarEnLote() {
+    void dadoUnOrquestadorDeAcciones_alEjecutarSuProcesoEnLote_ejecutaTodasLasAccionesQueTieneEnSuListaLuegoBorraTOdasLasAccionesDeLaMisma() {
         NodoRed nodo = new NodoRed("NODO-1", 10000);
         AmpliacionTrafico ampliacion = new AmpliacionTrafico(nodo, 3000);
         RestriccionTrafico restriccion = new RestriccionTrafico(nodo, 5000);
         OrquestadorAcciones orq = new OrquestadorAcciones();
-
         orq.registrarAccion(restriccion);
         orq.registrarAccion(ampliacion);
 
@@ -39,7 +38,7 @@ public class OrquestadorAccionesTest {
     }
 
     @Test
-    void LoteAcciones_OperacionFallida() {
+    void dadoUnOrquestadorDeAcciones_siUnaAccionFallaNoAlteraLaCapacidadDelNodoDado() {
         NodoRed nodo = new NodoRed("NODO-1", -750);
         AmpliacionTrafico ampliacion = new AmpliacionTrafico(nodo, 3000);
         RestriccionTrafico restriccion = new RestriccionTrafico(nodo, 60000);
